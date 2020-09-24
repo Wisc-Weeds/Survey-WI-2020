@@ -1,0 +1,79 @@
+---
+title: "Dicamba Survey"
+author: "Maxwel Coura Oliveira"
+date: "5/21/2018"
+output: html_document
+---
+
+---
+title: "Dicamba Survey"
+author: "Maxwel Coura Oliveira"
+date: "5/21/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+Data=read.csv("Dicamba.csv")
+
+Data$Response <- factor(Data$Response, levels=c("Dicamba + POST (other than glyphosate) + soil-residual", "Dicamba + POST (other than glyphosate)", "Dicamba + glyphosate + POST (other than glyphosate)", "Dicamba + glyphosate + POST (other than glyphosate) + soil-residual", "Dicamba alone", "Dicamba + glyphosate + soil-residual", "Dicamba + glyphosate"), labels=c("Dicamba + POST (other than glyphosate) + soil-residual", "Dicamba + POST (other than glyphosate)", "Dicamba + glyphosate + POST (other than glyphosate)", "Dicamba + glyphosate + POST (other than glyphosate) + soil-residual", "Dicamba alone", "Dicamba + glyphosate + soil-residual", "Dicamba + glyphosate"))
+```
+
+```{r}
+Data$Type <- factor(Data$Type, levels=c("% Respondents", "% ha"), label=c("% Respondents", " % ha"))
+```
+
+```{r}
+ggplot(data=Data, aes(x=Response, y=Answer)) +
+  geom_bar(stat="identity", aes(fill=Response), width = 0.6, color="black") + coord_flip() +
+ labs(fill="", y="", x="") + facet_grid(~Type) +
+  scale_fill_manual(values = c("orange", "grey70", "black", "green", "blue", "red", "purple"))+
+  theme(axis.text=element_text(size=11, color="black"), 
+        axis.title=element_text(size=16, face="bold"), 
+        panel.background = element_rect(fill="white", color = "black"), 
+        panel.grid.major = element_line(color = "white"), 
+  panel.grid.minor = element_blank(), legend.key.width = unit(2.2, "line"), panel.border=element_rect(fill=NA, color="black", size=0.7, linetype = "solid"),
+  legend.position=c(0.12,8.86),
+legend.background = element_rect(fill =NA),  legend.title=element_blank())  + ylim(0,50) +
+ggsave("response.tiff", units="in", width=12, height=4, dpi=600, compression = 'lzw')
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+x <- c("Yes", "No")
+y <- c(93, 7)
+
+Data = data.frame(x,y)
+```
+
+
+```{r}
+ggplot(Data, aes(x=x, y=y, fill=x)) + geom_bar(stat="identity", width=0.4) +scale_fill_manual(values=c("red", "darkgreen")) +
+  theme(axis.text=element_text(size=13, color="black"), 
+        axis.title=element_text(size=16, face="bold"), 
+        panel.background = element_rect(fill="white", color = "black"), 
+        panel.grid.major = element_line(color = "white"), 
+  panel.grid.minor = element_blank(), legend.key.width = unit(2.2, "line"), panel.border=element_rect(fill=NA, color="black", size=0.7, linetype = "solid"),
+  legend.position=c(0.12,8.86),
+legend.background = element_rect(fill =NA),  legend.title=element_blank())  + ylim(0,100) + labs(x="", y="% respondentes") +
+   annotate("text", x = 0.5, y = 100, label = "n=76") +
+ggsave("IWM.tiff", units="in", width=6, height=6, dpi=600, compression = 'lzw')
+```
+
+
+
+
+

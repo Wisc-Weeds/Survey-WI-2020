@@ -1,2 +1,2 @@
-# Survey-WI-2020
-A 2020 survey in Wisconsin 
+# Survey-Dicamba-NE
+Survey of dicamba and OTM in Nebraska
